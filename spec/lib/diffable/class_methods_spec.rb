@@ -63,8 +63,13 @@ describe Diffable::ClassMethods do
       expect(subject.valid_fields?('f1')).to be_true
     end
 
+    it 'is true if a Hash is given' do
+      expect(subject.valid_fields?(f1: :f2)).to be_true
+    end
+
     it 'is false if no array, symbol or string is given' do
       expect(subject.valid_fields?(666)).to be_false
+      expect(subject.valid_fields?(true)).to be_false
     end
   end
 end

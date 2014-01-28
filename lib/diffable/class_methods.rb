@@ -20,9 +20,11 @@ module Diffable
     end
 
     def valid_fields?(fields)
-      fields.class == Array or
-        fields.class == Symbol or
-        fields.class == String
+      valid_parameter_types.include? fields.class
+    end
+
+    def valid_parameter_types
+      [Array, Symbol, String, Hash]
     end
   end
 end
