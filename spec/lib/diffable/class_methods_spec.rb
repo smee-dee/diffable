@@ -56,7 +56,7 @@ describe Diffable::ClassMethods do
       expect(subject.valid_fields?(:f1)).to be_true
     end
 
-    it 'is false if parameter is in valid types' do
+    it 'is false if parameter is not in valid types' do
       subject.stub_chain(:valid_parameter_types, :include?).and_return(false)
       expect(subject.valid_fields?(:f1)).to be_false
     end
