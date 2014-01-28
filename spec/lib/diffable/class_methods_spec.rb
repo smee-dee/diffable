@@ -51,25 +51,22 @@ describe Diffable::ClassMethods do
   end
 
   describe '.valid_fields?' do
-    it 'is true if array is given' do
-      expect(subject.valid_fields?([:f1, :f2])).to be_true
-    end
-
-    it 'is true if only one symbol is given' do
+    it 'is true if parameter is in valid types' do
+      subject.stub_chain(:valid_parameter_types, :include?).and_return(true)
       expect(subject.valid_fields?(:f1)).to be_true
     end
 
-    it 'is true if a string is given' do
-      expect(subject.valid_fields?('f1')).to be_true
+    it 'is false if parameter is in valid types' do
+      subject.stub_chain(:valid_parameter_types, :include?).and_return(false)
+      expect(subject.valid_fields?(:f1)).to be_false
     end
+  end
 
-    it 'is true if a Hash is given' do
-      expect(subject.valid_fields?(f1: :f2)).to be_true
-    end
-
-    it 'is false if no array, symbol or string is given' do
-      expect(subject.valid_fields?(666)).to be_false
-      expect(subject.valid_fields?(true)).to be_false
+  describe '.valid_parameter_types' do
+    it 'is an array with Array, Symbol, String, Hash' do
+      [Array, Symbol, String, Hash].each do |type|
+        expect(subject.valid_parameter_types).to include(type)
+      end
     end
   end
 end
