@@ -7,23 +7,26 @@ module Diffable
     end
 
     def diffable_on(*fields)
-      unless valid_fields?(fields)
+      unless fields.present? and valid_fields?(fields)
         fail 'Please provide an Array of fields to be diffable'
       end
 
       save_fields_as_array fields
     end
 
+
     def save_fields_as_array(fields)
       @diffable_fields = fields
     end
 
     def valid_fields?(fields)
-      valid_parameter_types.include? fields.class
+      fields.map do |field|
+        valid_parameter_types.include? field.class
+      end.all?
     end
 
     def valid_parameter_types
-      [Array, Symbol, String, Hash]
+      [Symbol, String, Hash]
     end
   end
 end

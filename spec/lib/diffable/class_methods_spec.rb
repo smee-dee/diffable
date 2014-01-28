@@ -43,6 +43,10 @@ describe Diffable::ClassMethods do
       expect { subject.diffable_on }.to raise_error
     end
 
+    it 'raises an error if nothing is provided' do
+      expect { subject.diffable_on }.to raise_error
+    end
+
     it 'assigns the parsed diffable fields if given' do
       subject.stub(:valid_fields?).and_return(true)
       subject.should_receive(:save_fields_as_array).with([:f1, :f2])
@@ -52,19 +56,17 @@ describe Diffable::ClassMethods do
 
   describe '.valid_fields?' do
     it 'is true if parameter is in valid types' do
-      subject.stub_chain(:valid_parameter_types, :include?).and_return(true)
-      expect(subject.valid_fields?(:f1)).to be_true
+      expect(subject.valid_fields?([:f1])).to be_true
     end
 
     it 'is false if parameter is not in valid types' do
-      subject.stub_chain(:valid_parameter_types, :include?).and_return(false)
-      expect(subject.valid_fields?(:f1)).to be_false
+      expect(subject.valid_fields?([1])).to be_false
     end
   end
 
   describe '.valid_parameter_types' do
     it 'is an array with Array, Symbol, String, Hash' do
-      [Array, Symbol, String, Hash].each do |type|
+      [Symbol, String, Hash].each do |type|
         expect(subject.valid_parameter_types).to include(type)
       end
     end
