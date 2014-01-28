@@ -15,6 +15,7 @@ module Diffable
     end
 
     def save_fields_as_array(fields)
+      @diffable_fields = fields
     end
 
     def valid_fields?(fields)
