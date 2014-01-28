@@ -1,2 +1,2 @@
-class Dummy < ActiveRecord::Base
+class Dummy
 end

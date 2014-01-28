@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Diffable::VERSION
   spec.authors       = ['Stefan Schmidt']
   spec.email         = ['schmiddi@me.com']
-  spec.description   = %q{a tool to provide comparison of active record fields}
-  spec.summary       = %q{a tool to provide comparison of active record fields}
+  spec.description   = %q{a tool to provide comparison of class attributes}
+  spec.summary       = %q{a tool to provide comparison of class attributes}
   spec.homepage      = ''
   spec.license       = 'MIT'
 
@@ -23,9 +23,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'simplecov'
-  spec.add_development_dependency 'sqlite3'
-
-  spec.add_dependency('i18n')
-  spec.add_dependency('activesupport')
-  spec.add_dependency('activerecord')
 end

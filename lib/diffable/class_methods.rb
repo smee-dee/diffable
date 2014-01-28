@@ -3,11 +3,11 @@ module Diffable
     attr_reader :diffable_fields
 
     def diffable?
-      diffable_fields.present? and diffable_fields.is_a?(Array)
+      diffable_fields.is_a?(Array)
     end
 
     def diffable_on(*fields)
-      unless fields.present? and valid_fields?(fields)
+      unless fields.size > 0 and valid_fields?(fields)
         fail 'Please provide an Array of fields to be diffable'
       end
 
