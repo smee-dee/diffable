@@ -4,9 +4,9 @@ module Diffable
     end
 
     def diff_fields(other)
-      # if self.class != other.class
-      #   fail "#{self.class} and #{other.class} are not equal Objects"
-      # end
+      if self.class != other.class
+        fail "#{self.class} and #{other.class} are not equal Objects"
+      end
 
       self.class.diffable_fields.map do |field|
         Diffable::Attribute.new(field, self, other)
