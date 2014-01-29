@@ -7,12 +7,12 @@ describe Diffable::ClassMethods do
     it { should respond_to(:diffable?) }
 
     it 'is false if no diffable fields are defined' do
-      subject.stub(:diffable_fields).and_return(nil)
+      subject.class_eval { @diffable_fields = nil }
       expect(subject.diffable?).to be_false
     end
 
     it 'is true if diffable fields are defined' do
-      subject.stub(:diffable_fields).and_return([:field])
+      subject.class_eval { @diffable_fields = [:f1] }
       expect(subject.diffable?).to be_true
     end
   end
@@ -31,8 +31,35 @@ describe Diffable::ClassMethods do
 
     it 'assigns the parsed diffable fields if given' do
       subject.stub(:valid_fields?).and_return(true)
-      subject.diffable_on(:f1, :f2)
-      expect(subject.diffable_fields).to eq [:f1, :f2]
+      expect { subject.diffable_on(:f1, :f2) }.not_to raise_error
+    end
+  end
+
+  describe '.diffable_fields' do
+    let(:input) do
+      [
+        :f1,
+        f2: [
+          :sub1,
+          :sub2,
+          sub3: [
+            subsub1: [:subsubsub1]
+          ]
+        ]
+      ]
+    end
+    let(:output) do
+      [
+        :f1,
+        [:f2, :sub1],
+        [:f2, :sub2],
+        [:f2, :sub3, :subsub1, :subsubsub1]
+      ]
+    end
+
+    it 'returns each attr accessing "path"' do
+      subject.diffable_on(input)
+      expect(subject.diffable_fields).to eq output
     end
   end
 
