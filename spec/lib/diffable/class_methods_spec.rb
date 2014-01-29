@@ -31,7 +31,6 @@ describe Diffable::ClassMethods do
 
     it 'assigns the parsed diffable fields if given' do
       subject.stub(:valid_fields?).and_return(true)
-      # subject.should_receive(:save_fields_as_array).with([:f1, :f2])
       subject.diffable_on(:f1, :f2)
       expect(subject.diffable_fields).to eq [:f1, :f2]
     end
