@@ -28,7 +28,7 @@ module Diffable
           value = diff_value_for(sub_field, value)
         end
 
-        return value if value
+        return value
       end
     end
   end
