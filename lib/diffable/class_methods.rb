@@ -1,6 +1,6 @@
 module Diffable
   module ClassMethods
-    attr_reader :diffable_fields
+    attr_accessor :diffable_fields
 
     def diffable?
       diffable_fields.is_a?(Array)
@@ -11,12 +11,7 @@ module Diffable
         fail 'Please provide an Array of fields to be diffable'
       end
 
-      save_fields_as_array fields
-    end
-
-
-    def save_fields_as_array(fields)
-      @diffable_fields = fields
+      self.diffable_fields = fields
     end
 
     def valid_fields?(fields)

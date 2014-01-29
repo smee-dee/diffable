@@ -17,24 +17,6 @@ describe Diffable::ClassMethods do
     end
   end
 
-  describe '.diffable_fields' do
-    it { should respond_to(:diffable_fields) }
-
-    it 'is nil if no fields given' do
-      expect(subject.diffable_fields).to be_nil
-    end
-
-    it 'returns an array with field1 if one field is given' do
-      subject.instance_variable_set(:@diffable_fields, [:field1])
-      expect(subject.diffable_fields).to eq [:field1]
-    end
-
-    it 'returns an array with field1, field1 if given' do
-      subject.instance_variable_set(:@diffable_fields, [:field1, :field2])
-      expect(subject.diffable_fields).to eq [:field1, :field2]
-    end
-  end
-
   describe '.diffable_on' do
     it { should respond_to(:diffable_on) }
 
@@ -49,8 +31,9 @@ describe Diffable::ClassMethods do
 
     it 'assigns the parsed diffable fields if given' do
       subject.stub(:valid_fields?).and_return(true)
-      subject.should_receive(:save_fields_as_array).with([:f1, :f2])
+      # subject.should_receive(:save_fields_as_array).with([:f1, :f2])
       subject.diffable_on(:f1, :f2)
+      expect(subject.diffable_fields).to eq [:f1, :f2]
     end
   end
 
