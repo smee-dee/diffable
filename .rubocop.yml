@@ -1,0 +1,17 @@
+AllCops:
+  Excludes:
+    - db/**
+    - config/**
+    - bin/**
+
+Documentation:
+  Enabled: false
+DotPosition:
+  Style: 'leading'
+AndOr:
+  Enabled: false
+Not:
+  Enabled: false
+
+ClassVars:
+  Enabled: false
