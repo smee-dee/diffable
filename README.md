@@ -1,6 +1,6 @@
 # Diffable
 
-TODO: Write a gem description
+Still Beta. Description will follow soon.
 
 ## Installation
 
