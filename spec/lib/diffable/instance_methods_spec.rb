@@ -4,7 +4,22 @@ describe Diffable::InstanceMethods do
   let(:subject1) { DummyWithAttributes.new('dummy 1') }
   let(:subject2) { DummyWithAttributes.new('dummy 2') }
 
+  describe '#diff' do
+    it 'returns an instance of Diffable::Output' do
+      Diffable::Output.should_receive(:new)
+                      .with(an_instance_of(Array))
+                      .and_call_original
+      subject1.diff(subject2)
+    end
+  end
+
   describe '#diff_fields' do
+    context 'given 2 different classes' do
+      it 'fails' do
+        expect { subject1.diff(Array.new) }.to raise_error
+      end
+    end
+
     context 'given only one attribute that is different' do
       it 'returns an array containing one Diffable::Attribute for it' do
         value = subject1.diff_fields(subject2)
@@ -17,8 +32,8 @@ describe Diffable::InstanceMethods do
 
     context 'given multiple attributes that are different' do
       before do
-        subject1.settings = {sub1: 's1', sub2: 's2'}
-        subject2.settings = {sub1: 's1', sub2: 'x2'}
+        subject1.settings = { sub1: 's1', sub2: 's2' }
+        subject2.settings = { sub1: 's1', sub2: 'x2' }
       end
 
       context '2 different fields' do

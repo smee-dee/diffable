@@ -10,19 +10,23 @@ module Diffable
       value1 and value2 and value1 != value2
     end
 
+    def value1
+      value_for(object1)
+    end
+
+    def value2
+      value_for(object2)
+    end
+
+    def fieldname
+      field.is_a?(Array) ? field.join('->') : field.to_s
+    end
+
     private
 
-      def value1
-        value_for(object1)
-      end
-
-      def value2
-        value_for(object2)
-      end
-
-      def value_for(object)
-        value = object.diff_value_for(field)
-        value if value and value.is_a?(String)
-      end
+    def value_for(object)
+      value = object.diff_value_for(field)
+      value if value and value.is_a?(String)
+    end
   end
 end

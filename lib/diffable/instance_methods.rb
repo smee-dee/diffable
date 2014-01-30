@@ -1,6 +1,7 @@
 module Diffable
   module InstanceMethods
-    def diff
+    def diff(other)
+      Diffable::Output.new diff_fields(other)
     end
 
     def diff_fields(other)
