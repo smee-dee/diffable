@@ -21,9 +21,8 @@ module Diffable
 
       current.each do |field|
         if field.is_a?(Hash)
-          field_key = field.keys.first
           field.values.first.each do |value|
-            result << [field_key] + diffable_fields(value).flatten
+            result << [field.keys.first] + diffable_fields(value).flatten
           end
         else
           result << field.to_sym
