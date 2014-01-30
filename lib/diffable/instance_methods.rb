@@ -1,7 +1,11 @@
 module Diffable
   module InstanceMethods
     def diff(other)
-      Diffable::Output.new diff_fields(other)
+      Diffable::Output.new comparable_diff_fields(other)
+    end
+
+    def comparable_diff_fields(other)
+      diff_fields(other).select(&:comparable?)
     end
 
     def diff_fields(other)
@@ -11,7 +15,7 @@ module Diffable
 
       self.class.diffable_fields.map do |field|
         Diffable::Attribute.new(field, self, other)
-      end.select(&:comparable?)
+      end
     end
 
     def diff_value_for(field, obj = self)

@@ -13,7 +13,7 @@ describe Diffable::InstanceMethods do
     end
   end
 
-  describe '#diff_fields' do
+  describe '#comparable_diff_fields' do
     context 'given 2 different classes' do
       it 'fails' do
         expect { subject1.diff(Array.new) }.to raise_error
@@ -22,7 +22,7 @@ describe Diffable::InstanceMethods do
 
     context 'given only one attribute that is different' do
       it 'returns an array containing one Diffable::Attribute for it' do
-        value = subject1.diff_fields(subject2)
+        value = subject1.comparable_diff_fields(subject2)
         expect(value).to be_an_instance_of(Array)
         expect(value.size).to be 1
         expect(value.first).to be_an_instance_of Diffable::Attribute
@@ -38,7 +38,7 @@ describe Diffable::InstanceMethods do
 
       context '2 different fields' do
         it 'returns an array containing 2 Attributes' do
-          value = subject1.diff_fields(subject2)
+          value = subject1.comparable_diff_fields(subject2)
           expect(value).to be_an_instance_of(Array)
           expect(value.size).to be 2
           expect(value.first.field).to eq :name
@@ -50,7 +50,7 @@ describe Diffable::InstanceMethods do
         before { subject2.settings[:sub1] = 'x1' }
 
         it 'returns an array containing 3 Attributes' do
-          value = subject1.diff_fields(subject2)
+          value = subject1.comparable_diff_fields(subject2)
           expect(value).to be_an_instance_of(Array)
           expect(value.size).to be 3
           expect(value.first.field).to eq :name
