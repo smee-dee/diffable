@@ -6,7 +6,7 @@ require 'bundler/setup'
 
 SimpleCov.start
 
-Dir['lib/**/*.rb'].each { |file| load(file); }
+require 'diffable'
 Dir[File.expand_path('spec/factories/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
