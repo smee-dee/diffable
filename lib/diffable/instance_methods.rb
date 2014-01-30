@@ -22,12 +22,8 @@ module Diffable
       end
 
       if field.is_a?(Array)
-        key   = field[0]
-        rest  = field[1..-1]
-        value = diff_value_for(key, obj)
-        rest.each do |sub_field|
-          value = diff_value_for(sub_field, value)
-        end
+        value = diff_value_for(field[0], obj)
+        field[1..-1].each { |_sub| value = diff_value_for(_sub, value) }
 
         return value
       end
