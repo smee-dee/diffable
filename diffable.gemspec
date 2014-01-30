@@ -24,5 +24,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'pry'
+
+  # code quality gems
   spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'roodi'
+  spec.add_development_dependency 'excellent'
+  spec.add_development_dependency 'cane'
 end
