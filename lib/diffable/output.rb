@@ -46,15 +46,8 @@ module Diffable
 
     def each_diff_as(format)
       @diff_attributes.each do |attr|
-        diff = diffy(attr.value1, attr.value2).to_s(format)
-        yield(attr, diff)
+        yield(attr, attr.diff(format))
       end
-    end
-
-    private
-
-    def diffy(string1, string2)
-      ::Diffy::Diff.new(string1, string2)
     end
   end
 end

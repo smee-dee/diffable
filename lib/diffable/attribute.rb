@@ -22,6 +22,10 @@ module Diffable
       field.is_a?(Array) ? field.join('->') : field.to_s
     end
 
+    def diff(format = :html)
+      ::Diffy::Diff.new(value1, value2).to_s(format)
+    end
+
     private
 
     def value_for(object)
