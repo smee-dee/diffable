@@ -3,6 +3,11 @@ require 'spec_helper'
 describe Diffable::ClassMethods do
   subject { Dummy }
 
+  before do
+    Object.send(:remove_const, 'Dummy')
+    load 'spec/factories/dummy.rb'
+  end
+
   describe '.diffable?' do
     it { should respond_to(:diffable?) }
 
