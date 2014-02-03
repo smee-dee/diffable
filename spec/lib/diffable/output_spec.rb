@@ -43,6 +43,7 @@ describe Diffable::Output do
 
   context 'with associated objects' do
     it '#diff returns the diff of the associated objects' do
+      pending 'not yet implemented'
       expect_diffy_format(:text, 'text_diff')
       ::Diffy::Diff.any_instance
                    .should_receive(:new)
