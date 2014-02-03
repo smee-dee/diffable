@@ -41,29 +41,18 @@ describe Diffable::ClassMethods do
   end
 
   describe '.diffable_fields' do
-    let(:input) do
-      [
-        :f1,
-        f2: [
-          :sub1,
-          :sub2,
-          sub3: [
-            subsub1: :subsubsub1
-          ]
-        ]
-      ]
-    end
+    let(:assoc_dummy) { AssociatedDummy.new('val') }
     let(:output) do
       [
         :f1,
         [:f2, :sub1],
         [:f2, :sub2],
-        [:f2, :sub3, :subsub1, :subsubsub1]
+        [:f2, :sub3, :subsub1, :subsubsub1],
+        [:many, :assocs]
       ]
     end
 
     it 'returns each attr accessing "path"' do
-      subject.diffable_on(input)
       expect(subject.diffable_fields).to eq output
     end
   end
