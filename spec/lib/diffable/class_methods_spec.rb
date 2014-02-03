@@ -43,7 +43,7 @@ describe Diffable::ClassMethods do
           :sub1,
           :sub2,
           sub3: [
-            subsub1: [:subsubsub1]
+            subsub1: :subsubsub1
           ]
         ]
       ]
