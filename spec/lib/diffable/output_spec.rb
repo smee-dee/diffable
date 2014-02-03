@@ -7,43 +7,40 @@ describe Diffable::Output do
 
   describe '#to_s' do
     it 'returns plain diff' do
-      plain = "name:\n-dummy 1\n\\ " +
-              "No newline at end of file\n+dummy 2\n\\ " +
-              "No newline at end of file\n"
-      expect(output.to_s).to eq plain
+      expect_diffy_format(:text, 'plain_diff')
+      expect(output.to_s).to eq "name:\nplain_diff"
     end
   end
 
   describe '#to_ansi_color' do
     it 'returns ansi colored diff' do
-      color = "name:\n\e[31m-dummy 1\e[0m\n\\ " +
-              "No newline at end of file\n\e[32m+dummy 2\e[0m\n\\ " +
-              "No newline at end of file\n"
-      expect(output.to_ansi_color).to eq color
+      expect_diffy_format(:color, 'color_diff')
+      expect(output.to_ansi_color).to eq "name:\ncolor_diff"
     end
   end
 
   describe '#to_html' do
     it 'returns html formatted diff' do
+      expect_diffy_format(:html, 'html_diff')
       html = "<div class=\"diffable-diff html\">" +
-             "<div class=\"field\">name:</div>" +
-             "<div class=\"diff\">\n  " +
-             "<ul>\n    " +
-             "<li class=\"del\"><del>dummy <strong>1</strong></del></li>\n" +
-             "    <li class=\"ins\"><ins>dummy <strong>2</strong></ins></li>" +
-             "\n  </ul>\n</div>\n</div>"
+             "<div class=\"field\">name:</div>html_diff</div>"
       expect(output.to_html).to eq html
     end
   end
 
   describe '#to_simple_html' do
     it 'returns simple html formatted diff' do
+      expect_diffy_format(:html_simple, 'html_simple_diff')
       html = "<div class=\"diffable-diff simple-html\">" +
-             "<div class=\"field\">name:</div><div class=\"diff\">\n" +
-             "  <ul>\n    <li class=\"del\"><del>dummy 1</del></li>\n\n" +
-             "    <li class=\"ins\"><ins>dummy 2</ins></li>\n\n  " +
-             "</ul>\n</div>\n</div>"
+             "<div class=\"field\">name:</div>html_simple_diff</div>"
       expect(output.to_simple_html).to eq html
     end
+  end
+
+  def expect_diffy_format(format, val)
+    ::Diffy::Diff.any_instance
+                 .should_receive(:to_s)
+                 .with(format)
+                 .and_return(val)
   end
 end
