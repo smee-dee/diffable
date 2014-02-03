@@ -5,6 +5,10 @@ describe Diffable::Output do
   let(:dummy2) { DummyWithAttributes.new('dummy 2') }
   let(:output) { dummy1.diff dummy2 }
 
+  let(:assoc_dummy1) { DummyWithAssociation.new('assoc dummy 1') }
+  let(:assoc_dummy2) { DummyWithAssociation.new('assoc dummy 2') }
+  let(:assoc_output) { assoc_dummy1.diff assoc_dummy2 }
+
   describe '#to_s' do
     it 'returns plain diff' do
       expect_diffy_format(:text, 'plain_diff')
@@ -34,6 +38,17 @@ describe Diffable::Output do
       html = "<div class=\"diffable-diff simple-html\">" +
              "<div class=\"field\">name:</div>html_simple_diff</div>"
       expect(output.to_simple_html).to eq html
+    end
+  end
+
+  context 'with associated objects' do
+    it '#diff returns the diff of the associated objects' do
+      expect_diffy_format(:text, 'text_diff')
+      ::Diffy::Diff.any_instance
+                   .should_receive(:new)
+                   .with('assoc_dummy1', 'assoc_dummy2')
+                   .and_call_original
+      expect(assoc_output.to_s).to eq "value:\ntext_diff"
     end
   end
 
