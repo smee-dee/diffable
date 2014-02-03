@@ -7,9 +7,3 @@ class DummyWithAssociation
     @associated_objects = [AssociatedDummy.new(associated_value)]
   end
 end
-
-class AssociatedDummy < Struct.new(:value)
-  attr_reader :value
-
-  diffable_on :value
-end
