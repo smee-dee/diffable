@@ -21,6 +21,8 @@ module Diffable
           associated.each do |assoc|
             send(assoc).zip(other.send(assoc)).each do |assoc_obj|
               assoc_obj.first.diff_fields(assoc_obj.last).each do |diffable_attribute|
+                diffable_attribute.add_superior self.class.name
+                diffable_attribute.add_superior assoc
                 fields << diffable_attribute
               end
             end
