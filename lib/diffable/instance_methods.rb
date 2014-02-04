@@ -13,26 +13,9 @@ module Diffable
         fail "#{self.class} and #{other.class} are not equal Objects"
       end
 
-      fields = []
-      self.class.diffable_fields.each do |field|
-        if field.is_a?(Array) and field.first == :many
-          associated = field.drop(1)
-          associated = [associated] unless associated.is_a?(Array)
-          associated.each do |assoc|
-            send(assoc).zip(other.send(assoc)).each do |assoc_obj|
-              assoc_obj.first.diff_fields(assoc_obj.last).each do |diffable_attribute|
-                diffable_attribute.add_superior self.class.name
-                diffable_attribute.add_superior assoc
-                fields << diffable_attribute
-              end
-            end
-          end
-        else
-          fields << Diffable::Attribute.new(field, self, other)
-        end
-      end
-
-      fields
+      self.class.diffable_fields.map do |field|
+        Diffable::AttributeExtractor.new(field, self, other).attributes
+      end.flatten
     end
 
     def diff_value_for(field, obj = self)
