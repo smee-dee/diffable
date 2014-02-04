@@ -1,7 +1,8 @@
 module Diffable
-  class AssociatedAttributeExtractor < AttributeExtractor
+  class ManyAttributesExtractor < AttributeExtractor
     def attributes
       attributes = []
+
       associations.each do |association|
         each_associated_diff_attribute_for(association) do |attribute|
           attribute.add_superior object1.class.name
