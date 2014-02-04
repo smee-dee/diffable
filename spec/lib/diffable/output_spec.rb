@@ -39,7 +39,7 @@ describe Diffable::Output do
       expect_diffy_format(:html_simple, 'html_simple_diff')
       html = "<div class=\"diffable-diff simple-html\">" +
              "<div class=\"field\">#{result_fieldname}:</div>" +
-             "html_simple_diff</div>"
+             'html_simple_diff</div>'
       expect(output.to_simple_html).to eq html
     end
   end
@@ -48,7 +48,7 @@ describe Diffable::Output do
     it '#diff returns the diff of the associated objects' do
       expect_diffy_format(:text, 'text_diff')
       expect(assoc_output.to_s)
-        .to eq "dummy_with_association.associated_objects=>" +
+        .to eq 'dummy_with_association.associated_objects=>' +
                "associated_dummy.value:\ntext_diff"
     end
   end
